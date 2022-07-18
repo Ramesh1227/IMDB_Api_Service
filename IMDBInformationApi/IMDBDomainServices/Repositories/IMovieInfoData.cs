@@ -12,8 +12,8 @@ namespace IMDBInformation.Domain.Repositories
     {
        Task<IEnumerable<MovieInfoDataModel>> GetAllMovieInformationData();
         
-        Task<MovieInformationCreateResponse> CreateMovieInformationData( MovieInformationCreateRequest request);
+        Task<int> CreateMovieInformationData( MovieInformationCreateRequest request);
 
-        Task<MovieInformationEditResponse> EditMovieInformationData(MovieInformationEditRequest request);
+        Task<int> EditMovieInformationData(MovieInformationEditRequest request);
     }
 }

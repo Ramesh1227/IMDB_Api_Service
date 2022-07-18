@@ -20,40 +20,87 @@ namespace IMDBInformation.Domain.Services.Implementation
 
         public async Task<MovieInformationGetAllResponse> GetAllMovieInformation()
         {
-            var result = await _movieInfoData.GetAllMovieInformationData();
-            MovieInformationGetAllResponse response;
-            if (result != null)
+            try
             {
-                var movieInformation = result.GroupBy(x => x.MovieId).Select(movieinfo => new MovieInformationGetAllDto()
+
+                var result = await _movieInfoData.GetAllMovieInformationData();
+                MovieInformationGetAllResponse response;
+                if (result != null)
                 {
-                    MovieId = movieinfo.Key,
-                    MovieName = movieinfo.First().MovieName,
-                    Producer = movieinfo.First().ProducerName,
-                    DateOfrelease = movieinfo.First().DateOfrelease,
-                    Actors = result.Where(x => x.MovieId == movieinfo.Key).Select(x => new ActorsInfo() { ActorsName = x.ActorName }).ToList(),
-                }).ToList();
-                return response = new MovieInformationGetAllResponse { GetAllMovieInformations = movieInformation };
+                    var movieInformation = result.GroupBy(x => x.MovieId).Select(movieinfo => new MovieInformationGetAllDto()
+                    {
+                        MovieId = movieinfo.Key,
+                        MovieName = movieinfo.First().MovieName,
+                        Producer = movieinfo.First().ProducerName,
+                        DateOfrelease = movieinfo.First().DateOfrelease,
+                        Actors = result.Where(x => x.MovieId == movieinfo.Key).Select(x => new ActorsInfo() { ActorsName = x.ActorName }).ToList(),
+                    }).ToList();
+                    return response = new MovieInformationGetAllResponse { GetAllMovieInformations = movieInformation };
+                }
+                else
+                {
+                    throw new Exception();
+                }
+
             }
-            else
+            catch(Exception ex)
             {
                 throw new Exception();
-                return null;
             }
-
-            return response;
         }
 
         public async Task<MovieInformationCreateResponse> CreateMovieInformation(MovieInformationCreateRequest request)
         {
-            var response = await _movieInfoData.CreateMovieInformationData(request);
+            try
+            {
+                MovieInformationCreateResponse response;
+                var result = await _movieInfoData.CreateMovieInformationData(request);
+                if (result > 0)
+                {
+                    response = new MovieInformationCreateResponse()
+                    {
+                        MovieId = result,
+                        Message = "MovieInformation successfully created."
+                    };
 
-            return response;
+                    return response;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public async Task<MovieInformationEditResponse> EditMovieInformation(MovieInformationEditRequest request)
         {
-            var response = await _movieInfoData.EditMovieInformationData(request);
-            return response;
+            try
+            {
+                MovieInformationEditResponse response;
+                var result = await _movieInfoData.EditMovieInformationData(request);
+                if (result > 0)
+                {
+                    response = new MovieInformationEditResponse()
+                    {
+                        MovieId = result,
+                        Message = $"MovieInformation updated successfully."
+                    };
+
+                    return response;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseFiles", "DatabaseFi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{ED2F2B01-B9AC-4045-B365-24404306EFD7}"
 	ProjectSection(SolutionItems) = preProject
-		Script_createtablerelations _001.sql = Script_createtablerelations _001.sql
+		script_001_createtables.sql = script_001_createtables.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{995C9D6D-A7CB-4D3C-9DD2-DDE34AD3F9C0}"
@@ -18,7 +18,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBInformation.Repository"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBInformation.Domain", "IMDBDomainServices\IMDBInformation.Domain.csproj", "{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDBInformationApiService", "IMDBInformationApiService\IMDBInformationApiService.csproj", "{D925459D-69F9-4BCB-AEDB-7DBF56287946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBInformationApiService", "IMDBInformationApiService\IMDBInformationApiService.csproj", "{D925459D-69F9-4BCB-AEDB-7DBF56287946}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoreProcedures", "StoreProcedures", "{3FF36BD4-87CE-4D68-A1F3-9C17770A102B}"
+	ProjectSection(SolutionItems) = preProject
+		sp_sql_001_Create.sql = sp_sql_001_Create.sql
+		sp_sql_002_Update.sql = sp_sql_002_Update.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +52,7 @@ Global
 		{ED2F2B01-B9AC-4045-B365-24404306EFD7} = {8A4BA8E2-B45E-4552-9E94-4A648B179E5B}
 		{E6EE80AE-4E5B-494D-AD6B-457DC2333ED9} = {673156A7-3BD2-4025-BDEB-6E2639DA490C}
 		{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F} = {995C9D6D-A7CB-4D3C-9DD2-DDE34AD3F9C0}
+		{3FF36BD4-87CE-4D68-A1F3-9C17770A102B} = {8A4BA8E2-B45E-4552-9E94-4A648B179E5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {02D57FD1-4C74-46AB-9228-288C1197540D}

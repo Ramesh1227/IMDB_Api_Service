@@ -16,7 +16,9 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Dapper.Bulk" Version="1.5.0" />
     <PackageReference Include="Dapper.Compose" Version="1.0.2" />
+    <PackageReference Include="Dapper.Contrib.BulkInsert" Version="0.1.13" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />

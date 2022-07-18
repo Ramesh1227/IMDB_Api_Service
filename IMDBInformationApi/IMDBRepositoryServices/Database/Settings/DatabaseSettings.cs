@@ -23,9 +23,6 @@ namespace MovieInformationService.Data.Database.Settings
                 if (string.IsNullOrEmpty(_connectionString))
                 {
                     _connectionString = _Configuration["ConnectionString"];
-                        //Environment.GetEnvironmentVariable("ConnectionString");
-                    //_Configuration.GetConnectionString("DatabaseConnectingString");
-                    // Environment.GetEnvironmentVariable("DatabaseConnectingString");
                 }
                 return _connectionString;
             }

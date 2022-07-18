@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMDBInformation.Domain.Contract.Request.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,8 @@ namespace IMDBInformation.Domain
         public string DateOfRelease { get; set; }
 
         public int ProducerId { get; set; }
-        public string ProducerName { get; set; }
 
-        public List<Actor> Actors { get; set; }
+        public List<Actors> Actors { get; set; }
     }
 
-    public class Actor
-    {
-        public string ActorsId { get; set; }
-        public string ActorsName { get; set; }
-    }
 }

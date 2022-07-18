@@ -1,19 +1,16 @@
 ﻿using IMDBInformation.Domain;
 using IMDBInformation.Domain.Repositories;
 using IMDBInformation.Domain.DataEntities;
-using IMDBInformation.Domain;
 using Dapper;
 using Dapper.Compose;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using IMDBInformation.Repository.SQLQueries;
 using IMDBInformation.Repository.Database.Executor;
-using IMDBInformation.Repository.MockSetup;
 using MovieInformationService.Data.Database.Settings;
 using System.Data.SqlClient;
+using Microsoft.SqlServer.Server;
+using IMDBInformation.Domain.Contract.Request.Common;
+using IMDBInformation.Repository.Common;
 
 namespace IMDBInformation.Repository.Repository
 {
@@ -44,18 +41,61 @@ namespace IMDBInformation.Repository.Repository
             }
         }
 
-        public async Task<MovieInformationCreateResponse> CreateMovieInformationData(MovieInformationCreateRequest request)
+        public async Task<int> CreateMovieInformationData(MovieInformationCreateRequest request)
         {
-            var data = MockData.AddMovieInfo(request);
+            try
+            {
 
-            return data;
+                using (var connection = new SqlConnection(idatabaseSettings.Connectionstring))
+                {
+                    IEnumerable<Actors> list = request.Actors.AsList();
+                    var tvprecords = CommonFunctions.CreateSqlDataRecord(list).AsTableValuedParameter("dbo.UserDefinedTable");
+                    var Parameter = new DynamicParameters();
+                    Parameter.Add("MovieName", request.MovieName);
+                    Parameter.Add("Plot", request.Plot);
+                    Parameter.Add("ProducerId", request.ProducerId);
+                    Parameter.Add("Actor_List", tvprecords);
+                    Parameter.Add("DateOfRelease", request.DateOfRelease);
+                    Parameter.Add(name: "@Movie_Id", dbType: DbType.Int64, direction: ParameterDirection.ReturnValue);
+
+                    var result = await connection.ExecuteAsync("dbo.CreateMovies", Parameter, commandType: CommandType.StoredProcedure);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public async Task<MovieInformationEditResponse> EditMovieInformationData (MovieInformationEditRequest request)
+        public async Task<int> EditMovieInformationData (MovieInformationEditRequest request)
         {
-            var response = MockData.EditMovieInfo(request);
+            try
+            {
+                MovieInformationEditResponse response = new MovieInformationEditResponse();
+                using (var connection = new SqlConnection(idatabaseSettings.Connectionstring))
+                {
+                    IEnumerable<Actors> list = request.Actors.AsEnumerable();
+                    var tvprecords = CommonFunctions.CreateSqlDataRecord(list).AsTableValuedParameter("dbo.UserDefinedTable");
+                    var Parameter = new DynamicParameters();
 
-            return response;
+                    Parameter.Add("MovieId", request.MovieId);
+                    Parameter.Add("MovieName", request.MovieName);
+                    Parameter.Add("Plot", request.Plot);
+                    Parameter.Add("ProducerId", request.ProducerId);
+                    Parameter.Add("Actor_List", tvprecords);
+                    Parameter.Add("DateOfRelease", request.DateOfRelease);
+                    Parameter.Add(name: "@Movie_Id", dbType: DbType.Int64, direction: ParameterDirection.ReturnValue);
+
+                    var result = await connection.ExecuteAsync("dbo.UpdateMovieDetails", Parameter, commandType: CommandType.StoredProcedure);
+                    return result;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
+
     }
 }

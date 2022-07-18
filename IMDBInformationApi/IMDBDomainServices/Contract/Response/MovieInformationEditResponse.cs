@@ -10,6 +10,6 @@ namespace IMDBInformation.Domain
     {
         public string Message { get; set; }
 
-        public int Status { get; set; }
+        public int MovieId { get; set; }
     }
 }
