@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace IMDBInformation.Repository.Database.Executor
 {
-    public interface IDatabaseExecutorFactory
+    public interface IDataBaseExecutorFactory
     {
-        
+        IDatabaseExecutor CreateExcecutor();
+
     }
 }

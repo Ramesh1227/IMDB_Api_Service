@@ -5,23 +5,23 @@ using Dapper;
 using Dapper.Compose;
 using System.Data;
 using IMDBInformation.Repository.SQLQueries;
-using IMDBInformation.Repository.Database.Executor;
 using MovieInformationService.Data.Database.Settings;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Server;
 using IMDBInformation.Domain.Contract.Request.Common;
 using IMDBInformation.Repository.Common;
+using IMDBInformation.Repository.Database.Executor;
 
 namespace IMDBInformation.Repository.Repository
 {
     public class MovieInfoData : IMovieInfoData
     {
-        private IDatabaseExecutor _databaseExecutor { get; set; }
+        //private IDataBaseExecutorFactory _dataBaseExecutorFactory;
         private IDatabaseSettings idatabaseSettings { get; set; }
-        public MovieInfoData(IDatabaseExecutor databaseExecutor, IDatabaseSettings databaseSettings)
+        public MovieInfoData( IDatabaseSettings databaseSettings) //IDataBaseExecutorFactory dataBaseExecutorFactory)
         {
-            _databaseExecutor = databaseExecutor;
             idatabaseSettings = databaseSettings;
+           // _dataBaseExecutorFactory = dataBaseExecutorFactory;
         }
 
         public async Task<IEnumerable<MovieInfoDataModel>> GetAllMovieInformationData()
@@ -47,6 +47,7 @@ namespace IMDBInformation.Repository.Repository
             {
 
                 using (var connection = new SqlConnection(idatabaseSettings.Connectionstring))
+                //using (var connection = _dataBaseExecutorFactory.CreateExcecutor())
                 {
                     IEnumerable<Actors> list = request.Actors.AsList();
                     var tvprecords = CommonFunctions.CreateSqlDataRecord(list).AsTableValuedParameter("dbo.UserDefinedTable");
@@ -56,10 +57,12 @@ namespace IMDBInformation.Repository.Repository
                     Parameter.Add("ProducerId", request.ProducerId);
                     Parameter.Add("Actor_List", tvprecords);
                     Parameter.Add("DateOfRelease", request.DateOfRelease);
-                    Parameter.Add(name: "@Movie_Id", dbType: DbType.Int64, direction: ParameterDirection.ReturnValue);
+                    Parameter.Add(name: "@Movie_Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                    var result = await connection.ExecuteAsync("dbo.CreateMovies", Parameter, commandType: CommandType.StoredProcedure);
-                    return result;
+                    await connection.ExecuteAsync("dbo.CreateMovies", Parameter, commandType: CommandType.StoredProcedure);
+
+                    var result = Parameter.Get<int>("@Movie_Id");
+                    return (int)result;
                 }
             }
             catch (Exception ex)
@@ -85,9 +88,10 @@ namespace IMDBInformation.Repository.Repository
                     Parameter.Add("ProducerId", request.ProducerId);
                     Parameter.Add("Actor_List", tvprecords);
                     Parameter.Add("DateOfRelease", request.DateOfRelease);
-                    Parameter.Add(name: "@Movie_Id", dbType: DbType.Int64, direction: ParameterDirection.ReturnValue);
+                    Parameter.Add(name:"@Movie_Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                    var result = await connection.ExecuteAsync("dbo.UpdateMovieDetails", Parameter, commandType: CommandType.StoredProcedure);
+                    await connection.ExecuteAsync("dbo.UpdateMovieDetails", Parameter, commandType: CommandType.StoredProcedure);
+                    var result = Parameter.Get<int>("@Movie_Id");
                     return result;
                 }
             }

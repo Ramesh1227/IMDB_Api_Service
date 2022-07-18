@@ -2,7 +2,7 @@
 
 go
 
-/****** Object:  StoredProcedure [dbo].[UpdateMovieDetails]    Script Date: 18-07-2022 20:00:32 ******/
+/****** Object:  StoredProcedure [dbo].[UpdateMovieDetails]    Script Date: 18-07-2022 21:59:46 ******/
 SET ansi_nulls ON
 
 go
@@ -11,13 +11,14 @@ SET quoted_identifier ON
 
 go
 
-CREATE PROCEDURE [dbo].[Updatemoviedetails] (@MovieId       INT,
-                                             @MovieName     VARCHAR(500),
-                                             @Plot          NVARCHAR(max),
-                                             @DateOfRelease DATE,
-                                             @ProducerId    INT,
-                                             @Actor_List    [USERDEFINEDTABLE]
-readonly)
+ALTER PROCEDURE [dbo].[Updatemoviedetails] (@MovieId       INT,
+                                            @MovieName     VARCHAR(500),
+                                            @Plot          NVARCHAR(max),
+                                            @DateOfRelease DATE,
+                                            @ProducerId    INT,
+                                            @Actor_List    [USERDEFINEDTABLE]
+readonly,
+                                            @Movie_Id      INT out)
 AS
   BEGIN
       SET nocount ON
@@ -25,8 +26,6 @@ AS
       BEGIN TRAN
 
       BEGIN try
-          DECLARE @Movie_Id INT = 0
-
           DELETE FROM [dbo].[actorscommittedmovies]
           WHERE  movieid = @MovieId
 
@@ -58,6 +57,4 @@ AS
           -- if error, roll back any chanegs done by any of the sql statements
           ROLLBACK TRANSACTION
       END catch
-  END
-
-go 
+  END 

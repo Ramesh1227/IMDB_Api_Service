@@ -3,13 +3,9 @@ using IMDBInformation.Domain.Repositories;
 using IMDBInformation.Domain.Services.Implementation;
 using IMDBInformation.Domain.Services.Interfaces;
 using MovieInformationService.Data.Database.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMDBInformation.Repository.Database.Executor;
+using IMDBInformation.Repository.Database;
 using IMDBInformation.Repository.Repository;
+using IMDBInformation.Repository.Database.Executor;
 
 namespace IMDBInformation.Repository.Configurations
 {
@@ -21,8 +17,8 @@ namespace IMDBInformation.Repository.Configurations
             services.AddScoped<IMovieInfoService, MovieInfoService>();
 
             services.AddScoped<IDatabaseSettings, DatabaseSettings>();
-            services.AddScoped<IDatabaseExecutor, DatabaseExecutor>();
-            services.AddScoped<IDatabaseExecutorFactory, DatabaseExecutorFactory>();
+            //services.AddScoped<IDatabaseExecutor, DataBaseExecutor>();
+            //services.AddScoped<IDataBaseExecutorFactory, DataBaseExecutorFactory>();
 
             return services;
         }

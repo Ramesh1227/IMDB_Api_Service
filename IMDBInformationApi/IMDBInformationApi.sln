@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseFiles", "DatabaseFi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{ED2F2B01-B9AC-4045-B365-24404306EFD7}"
 	ProjectSection(SolutionItems) = preProject
-		script_001_createtables.sql = script_001_createtables.sql
+		..\Database\Tables\script_001_createtables.sql = ..\Database\Tables\script_001_createtables.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{995C9D6D-A7CB-4D3C-9DD2-DDE34AD3F9C0}"
@@ -22,8 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBInformationApiService",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoreProcedures", "StoreProcedures", "{3FF36BD4-87CE-4D68-A1F3-9C17770A102B}"
 	ProjectSection(SolutionItems) = preProject
-		sp_sql_001_Create.sql = sp_sql_001_Create.sql
-		sp_sql_002_Update.sql = sp_sql_002_Update.sql
+		..\Database\StoreProcedures\sp_sql_001_Create.sql = ..\Database\StoreProcedures\sp_sql_001_Create.sql
+		..\Database\StoreProcedures\sp_sql_002_Update.sql = ..\Database\StoreProcedures\sp_sql_002_Update.sql
 	EndProjectSection
 EndProject
 Global

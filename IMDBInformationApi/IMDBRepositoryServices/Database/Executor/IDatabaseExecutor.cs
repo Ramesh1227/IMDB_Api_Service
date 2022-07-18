@@ -1,11 +1,14 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace IMDBInformation.Repository.Database.Executor
 {
-    public interface IDatabaseExecutor 
+    public interface IDatabaseExecutor : IDisposable
     {
-        Task<T> ExcecuteQuery<T>(Func<IDbConnection, Task<T>> operation);
-        Task ExcecuteQuery<T>(Func<IDbConnection, Task> operation);
-       // Task<int> Insert<T>(string sql, object parameters = null);
+        Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transcation = null, int? commandTimeOut = null, CommandType? commandType = null);
     }
 }

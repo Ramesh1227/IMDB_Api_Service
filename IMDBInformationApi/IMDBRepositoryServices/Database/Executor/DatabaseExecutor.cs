@@ -1,47 +1,31 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
-using MovieInformationService.Data.Database.Settings;
-//using IMDBInformation.Domain.Common.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using static MovieinformationService.Domain.Common.Constants.Constants;
 
 namespace IMDBInformation.Repository.Database.Executor
 {
-    public class DatabaseExecutor : IDatabaseExecutor
+    public class DataBaseExecutor : IDatabaseExecutor
     {
-        private readonly IDatabaseSettings _idatabasesetting;
 
-        public DatabaseExecutor( IDatabaseSettings databaseSettings)
+        private readonly IDbConnection _dbconnection;
+
+        public DataBaseExecutor(IDbConnection dbconnection)
         {
-            _idatabasesetting = databaseSettings;
+            _dbconnection = dbconnection;
         }
 
-
-        public async Task<T> ExcecuteQuery<T>(Func<IDbConnection, Task<T>> operation)
+        public void Dispose()
         {
-            using (var connection = new SqlConnection(_idatabasesetting.Connectionstring))
-                return await operation(connection);
+            _dbconnection.Dispose();
         }
 
-        public Task ExcecuteQuery<T>(Func<IDbConnection, Task> operation)
+        public Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transcation = null, int? commandTimeOut = null, CommandType? commandType = null)
         {
-
-            using (var connection = new SqlConnection(_idatabasesetting.Connectionstring))
-                return operation(connection);
+            return _dbconnection.ExecuteAsync(sql, param, transcation, commandTimeOut, commandType);
         }
-
-        //public Task<int> Insert<T>(string sql, object parameters = null)
-        //{
-
-        //    using (var connection = new SqlConnection(_idatabasesetting.Connectionstring))
-        //        return await int;
-        //}
     }
 }
-

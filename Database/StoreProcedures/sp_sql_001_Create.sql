@@ -2,7 +2,7 @@
 
 go
 
-/****** Object:  StoredProcedure [dbo].[CreateMovies]    Script Date: 18-07-2022 20:00:13 ******/
+/****** Object:  StoredProcedure [dbo].[CreateMovies]    Script Date: 18-07-2022 20:27:51 ******/
 SET ansi_nulls ON
 
 go
@@ -11,12 +11,13 @@ SET quoted_identifier ON
 
 go
 
-CREATE PROCEDURE [dbo].[Createmovies] (@MovieName     VARCHAR(500),
-                                       @Plot          NVARCHAR(max),
-                                       @DateOfRelease DATE,
-                                       @ProducerId    INT,
-                                       @Actor_List    [USERDEFINEDTABLE]
-readonly)
+ALTER PROCEDURE [dbo].[Createmovies] (@MovieName     VARCHAR(500),
+                                      @Plot          NVARCHAR(max),
+                                      @DateOfRelease DATE,
+                                      @ProducerId    INT,
+                                      @Actor_List    [USERDEFINEDTABLE] readonly
+,
+                                      @Movie_Id      INT output)
 AS
   BEGIN
       SET nocount ON
@@ -25,8 +26,8 @@ AS
 
       BEGIN try
           DECLARE @MovieId INT
-          DECLARE @Movie_Id INT = 0
 
+          --DECLARE @Movie_Id INT = 0 
           -- Delete MovieId from ActorsCommittedMovies before deleting it from Movie table 
           DELETE FROM [dbo].[actorscommittedmovies]
           WHERE  movieid IN (SELECT movieid
@@ -73,11 +74,9 @@ AS
       END try
 
       BEGIN catch
+          SET @Movie_Id = -1
+
           -- if error, roll back any chanegs done by any of the sql statements
           ROLLBACK TRANSACTION
-
-          SET @Movie_Id = -1
       END catch
-  END
-
-go 
+  END 

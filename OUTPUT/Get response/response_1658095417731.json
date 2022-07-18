@@ -1,0 +1,32 @@
+{
+  "getAllMovieInformations": [
+    {
+      "movieId": 2,
+      "movieName": "MOVIE2",
+      "dateOfrelease": "01/12/2023 00:00:00",
+      "producer": "DSAD",
+      "actors": [
+        {
+          "actorsName": "A4"
+        },
+        {
+          "actorsName": "A2"
+        }
+      ]
+    },
+    {
+      "movieId": 1,
+      "movieName": "MOVIE12",
+      "dateOfrelease": "10/15/2023 00:00:00",
+      "producer": "RED",
+      "actors": [
+        {
+          "actorsName": "A1"
+        },
+        {
+          "actorsName": "A4"
+        }
+      ]
+    }
+  ]
+}
