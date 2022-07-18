@@ -4,6 +4,8 @@ namespace IMDBInformation.Repository.Database.Executor
 {
     public interface IDatabaseExecutor 
     {
-        IDatabaseExecutor GetExecutor();
+        Task<T> ExcecuteQuery<T>(Func<IDbConnection, Task<T>> operation);
+        Task ExcecuteQuery<T>(Func<IDbConnection, Task> operation);
+       // Task<int> Insert<T>(string sql, object parameters = null);
     }
 }

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDBInformationApi", "IMDBInformationApi\IMDBInformationApi.csproj", "{35C0B4C4-D591-4F29-A3A5-74BE1BAC8761}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseFiles", "DatabaseFiles", "{8A4BA8E2-B45E-4552-9E94-4A648B179E5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{ED2F2B01-B9AC-4045-B365-24404306EFD7}"
@@ -16,9 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{995C9D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{673156A7-3BD2-4025-BDEB-6E2639DA490C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDBInformation.Repository", "IMDBRepositoryServices\IMDBInformation.Repository.csproj", "{E6EE80AE-4E5B-494D-AD6B-457DC2333ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBInformation.Repository", "IMDBRepositoryServices\IMDBInformation.Repository.csproj", "{E6EE80AE-4E5B-494D-AD6B-457DC2333ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDBInformation.Domain", "IMDBDomainServices\IMDBInformation.Domain.csproj", "{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDBInformation.Domain", "IMDBDomainServices\IMDBInformation.Domain.csproj", "{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDBInformationApiService", "IMDBInformationApiService\IMDBInformationApiService.csproj", "{D925459D-69F9-4BCB-AEDB-7DBF56287946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{35C0B4C4-D591-4F29-A3A5-74BE1BAC8761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35C0B4C4-D591-4F29-A3A5-74BE1BAC8761}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35C0B4C4-D591-4F29-A3A5-74BE1BAC8761}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35C0B4C4-D591-4F29-A3A5-74BE1BAC8761}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6EE80AE-4E5B-494D-AD6B-457DC2333ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6EE80AE-4E5B-494D-AD6B-457DC2333ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6EE80AE-4E5B-494D-AD6B-457DC2333ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,6 +34,10 @@ Global
 		{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A4D413E-3BAB-4203-B21D-2DCE5DCE152F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D925459D-69F9-4BCB-AEDB-7DBF56287946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D925459D-69F9-4BCB-AEDB-7DBF56287946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D925459D-69F9-4BCB-AEDB-7DBF56287946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D925459D-69F9-4BCB-AEDB-7DBF56287946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

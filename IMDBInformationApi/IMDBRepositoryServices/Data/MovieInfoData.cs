@@ -12,30 +12,36 @@ using System.Threading.Tasks;
 using IMDBInformation.Repository.SQLQueries;
 using IMDBInformation.Repository.Database.Executor;
 using IMDBInformation.Repository.MockSetup;
+using MovieInformationService.Data.Database.Settings;
+using System.Data.SqlClient;
 
 namespace IMDBInformation.Repository.Repository
 {
     public class MovieInfoData : IMovieInfoData
     {
-        private IDatabaseExecutorFactory _databaseExecutorFactory { get; set; }
-        public MovieInfoData(IDatabaseExecutorFactory databaseExecutorFactory)
+        private IDatabaseExecutor _databaseExecutor { get; set; }
+        private IDatabaseSettings idatabaseSettings { get; set; }
+        public MovieInfoData(IDatabaseExecutor databaseExecutor, IDatabaseSettings databaseSettings)
         {
-            _databaseExecutorFactory = databaseExecutorFactory;
+            _databaseExecutor = databaseExecutor;
+            idatabaseSettings = databaseSettings;
         }
 
-        public async Task<MovieInformationGetAllResponse> GetAllMovieInformationData()
+        public async Task<IEnumerable<MovieInfoDataModel>> GetAllMovieInformationData()
         {
-            IEnumerable<MovieInfoDataModel> movieinfo;
-            var response = MockData.Movieinfo();
-            //using (var connection = _databaseExecutorFactory.CreateExecutor())
-            //{
-            //    var query = Query.Load<SqlFiles>(SqlFiles.GetMovieInformation);
-            //    movieinfo = connection.Query<IMDBInformation.Domain.DataEntities.MovieInfoDataModel>(query);
-            //}
-            //movieinfo = movieinfo.ToList().GroupBy();
-
-
-            return response;
+            try
+            {
+                using (var connection = new SqlConnection(idatabaseSettings.Connectionstring))
+                {
+                    var query = Query.Load<SqlFiles>(SqlFiles.GetMovieInformation);
+                    var result = await connection.QueryAsync<MovieInfoDataModel>(query);
+                    return result;
+                };
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<MovieInformationCreateResponse> CreateMovieInformationData(MovieInformationCreateRequest request)

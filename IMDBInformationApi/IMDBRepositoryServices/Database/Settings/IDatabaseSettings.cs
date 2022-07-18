@@ -11,6 +11,5 @@ namespace MovieInformationService.Data.Database.Settings
         string Connectionstring { get; }
         int CommandTimeOut { get; }
 
-
     }
 }

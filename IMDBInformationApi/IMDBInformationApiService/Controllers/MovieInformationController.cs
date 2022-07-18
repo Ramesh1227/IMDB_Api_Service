@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace MovieInformationService.Controllers
+namespace IMDBInformationApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,15 +17,15 @@ namespace MovieInformationService.Controllers
         }
 
         // GET: api/<GetAllMovieInfomation>
-        [HttpGet]
+        [HttpGet("GetAllMovieInfomation")]
         public async Task<IActionResult> Get()
         {
             var result = await _movieInfoService.GetAllMovieInformation();
             return Ok(result);
         }
 
-        // POST api/<CreateMovieInformation>
-        [HttpPost]
+        // POST api/<AddMovieInformation>
+        [HttpPost("AddMovieInformation")]
         public async Task<IActionResult> Post([FromBody] MovieInformationCreateRequest request)
         {
             var response = await _movieInfoService.CreateMovieInformation(request);
@@ -34,7 +34,7 @@ namespace MovieInformationService.Controllers
         }
 
         // PUT api/<EditMovieInformation>/
-        [HttpPut]
+        [HttpPut("EditMovieInformation")]
         public async Task<IActionResult> Put([FromBody] MovieInformationEditRequest request)
         {
             var response = await _movieInfoService.EditMovieInformation(request);

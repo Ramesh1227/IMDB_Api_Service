@@ -8,7 +8,6 @@ namespace IMDBInformation.Domain
 {
     public class MovieInformationCreateRequest
     {
-        public int MovieId { get; set; }
         public string MovieName { get; set; }
 
         public string Plot { get; set; }

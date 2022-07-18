@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace IMDBInformation.Domain.DataEntities
 {
-    public interface MovieInfoDataModel
+    public class MovieInfoDataModel
     {
         public int MovieId { get; set; }
 
-        public string MovieName { get; set; }    
+        public string MovieName { get; set; }
+
+        public string Plot { get; set; }
 
         public string DateOfrelease { get; set; }
 
-        public string Producer { get; set; }
+        public string ProducerName { get; set; }
 
-        public int ActorsId { get; set; }
-
-        public string ActorsName { get; set; }
+        public string ActorName { get; set; }
     }
 }

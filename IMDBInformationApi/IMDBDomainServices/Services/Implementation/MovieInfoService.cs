@@ -21,11 +21,26 @@ namespace IMDBInformation.Domain.Services.Implementation
         public async Task<MovieInformationGetAllResponse> GetAllMovieInformation()
         {
             var result = await _movieInfoData.GetAllMovieInformationData();
-            var MovieInformationGetAllResponse = new MovieInformationGetAllResponse()
+            MovieInformationGetAllResponse response;
+            if (result != null)
             {
-                GetAllMovieInformations = result.GetAllMovieInformations,
-            };
-            return result;
+                var movieInformation = result.GroupBy(x => x.MovieId).Select(movieinfo => new MovieInformationGetAllDto()
+                {
+                    MovieId = movieinfo.Key,
+                    MovieName = movieinfo.First().MovieName,
+                    Producer = movieinfo.First().ProducerName,
+                    DateOfrelease = movieinfo.First().DateOfrelease,
+                    Actors = result.Where(x => x.MovieId == movieinfo.Key).Select(x => new ActorsInfo() { ActorsName = x.ActorName }).ToList(),
+                }).ToList();
+                return response = new MovieInformationGetAllResponse { GetAllMovieInformations = movieInformation };
+            }
+            else
+            {
+                throw new Exception();
+                return null;
+            }
+
+            return response;
         }
 
         public async Task<MovieInformationCreateResponse> CreateMovieInformation(MovieInformationCreateRequest request)

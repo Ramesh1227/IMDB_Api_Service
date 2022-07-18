@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using MovieInformationService.Data.Database.Settings;
 //using IMDBInformation.Domain.Common.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,33 @@ namespace IMDBInformation.Repository.Database.Executor
 {
     public class DatabaseExecutor : IDatabaseExecutor
     {
+        private readonly IDatabaseSettings _idatabasesetting;
 
+        public DatabaseExecutor( IDatabaseSettings databaseSettings)
+        {
+            _idatabasesetting = databaseSettings;
+        }
+
+
+        public async Task<T> ExcecuteQuery<T>(Func<IDbConnection, Task<T>> operation)
+        {
+            using (var connection = new SqlConnection(_idatabasesetting.Connectionstring))
+                return await operation(connection);
+        }
+
+        public Task ExcecuteQuery<T>(Func<IDbConnection, Task> operation)
+        {
+
+            using (var connection = new SqlConnection(_idatabasesetting.Connectionstring))
+                return operation(connection);
+        }
+
+        //public Task<int> Insert<T>(string sql, object parameters = null)
+        //{
+
+        //    using (var connection = new SqlConnection(_idatabasesetting.Connectionstring))
+        //        return await int;
+        //}
     }
 }
 

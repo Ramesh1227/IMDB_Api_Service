@@ -8,9 +8,9 @@ namespace IMDBInformation.Repository.SQLQueries
 {
     public class SqlFiles
     {
-        private static readonly string sqlpath = "MovieInformationService.Data.SQLQueries.Read";
+        private static readonly string sqlpath = "IMDBInformation.Repository.SQLQueries.Read";
 
-        public static readonly string GetMovieInformation = sqlpath + "GetMovieInformation.sql";
+        public static readonly string GetMovieInformation = $"{sqlpath}.GetMovieInformation.sql";
 
 
     }
